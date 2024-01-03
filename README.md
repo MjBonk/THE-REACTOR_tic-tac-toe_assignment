@@ -1,4 +1,4 @@
-# React + Vite
+# Tic Tac Toe
 
 Read through and implement the tutorial.
 
