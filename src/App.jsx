@@ -10,14 +10,18 @@ function Square({ value, onSquareClick }) {
 }
 
 export default function Board() {
-	//useState hooks to remember turn and placement
 	const [squares, setSquares] = useState(Array(9).fill(null));
 	const [xIsNext, setXIsNext] = useState(true);
+	const [isDraw, setIsDraw] = useState(false);
+	const winner = calculateWinner(squares);
+	let status;
+
 
 	function handleClick(i) {
-		if (squares[i] || calculateWinner(squares)) {
+		if (squares[i] || calculateWinner(squares) || isDraw) {
 			return;
 		}
+
 		const nextSquares = squares.slice();
 
 		if (xIsNext === true) {
@@ -25,14 +29,19 @@ export default function Board() {
 		} else if (xIsNext === false) {
 			nextSquares[i] = "O";
 		}
+		const squaresLeft = nextSquares.filter(square => square === null)
+
+		if(squaresLeft.length === 0 && !calculateWinner(squares)){
+			setIsDraw(true)
+		}
 
 		setSquares(nextSquares);
 		setXIsNext(!xIsNext);
 	}
 
-	const winner = calculateWinner(squares);
-	let status;
-	if (winner) {
+	if(isDraw){
+		status = 'DRAW'
+	} else if (winner) {
 		status = 'WINNER ' + winner;
 	} else {
 		status = xIsNext ? "X" : "O";
