@@ -1,5 +1,4 @@
 .status {
-  text-align: center;
   font-size: 6rem;
   margin: 4rem -50rem;
   color: var(--clr-text);
@@ -24,4 +23,15 @@ button {
   font-size: 3em;
   font-weight: 500;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.replay-btn{
+  margin-top: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.replay-btn__img{
+  width: 80%;
 }

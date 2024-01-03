@@ -16,18 +16,17 @@ export default function Board() {
 	const winner = calculateWinner(squares);
 	let status;
 
-
 	function handleClick(i) {
-		//returns out of the click event (makes it disabled) if square already clicked/win/draw. 
-		// kind of like 'break' in loop 
+		//returns out of the click event (makes it disabled) if square already clicked/win/draw.
+		// kind of like 'break' in loop
 		if (squares[i] || calculateWinner(squares) || isDraw) {
 			return;
 		}
 
-		//use slice to copy squares array 
+		//use slice to copy squares array and modifying the copy instead of the original for 'immutability'
 		const squaresContent = squares.slice();
 
-		//replace null with X/O in the index clicked 
+		//replace null with X/O in the index clicked
 		if (xIsNext === true) {
 			squaresContent[i] = "X";
 		} else if (xIsNext === false) {
@@ -35,11 +34,11 @@ export default function Board() {
 		}
 
 		//declare varieble of how many empty squares left
-		const squaresLeft = squaresContent.filter(square => square === null)
+		const squaresLeft = squaresContent.filter((square) => square === null);
 
-	    //if no empty squares laft set state of draw 
-		if(squaresLeft.length === 0 && !calculateWinner(squares)){
-			setIsDraw(true)
+		//if no empty squares laft set state of draw
+		if (squaresLeft.length === 0 && calculateWinner(squares) === null) {
+			setIsDraw(true);
 		}
 
 		//replace square array with new array containing one replaced value
@@ -47,29 +46,27 @@ export default function Board() {
 		setSquares(squaresContent);
 		setXIsNext(!xIsNext);
 	}
-	
-	
-	//check id isDraw/winner === true
-	if(isDraw){
-		status = 'DRAW'
-	} 
+
+	//check if isDraw/winner is true to change status
+	if (isDraw) {
+		status = "DRAW";
+	}
+
 	if (winner) {
-		status = 'WINNER ' + winner;
+		status = "WINNER " + winner;
 	} else {
 		status = xIsNext ? "X" : "O";
 	}
 
 	//resets all the states
-	function handleClickReplay(){
-		setSquares(Array(9).fill(null))
-		setIsDraw(false)
-		setXIsNext(true)
+	function handleClickReplay() {
+		setSquares(Array(9).fill(null));
+		setIsDraw(false);
+		setXIsNext(true);
 	}
 
-
-
 	return (
-		//using arrow functions inside click events, otherwise the event goes off directly 
+		//using arrow functions inside click events, otherwise the event goes off directly
 		<>
 			<p className="status">{status}</p>
 			<div className="board-grid">
@@ -83,12 +80,12 @@ export default function Board() {
 				<Square value={squares[7]} onSquareClick={() => handleClick(7)} />
 				<Square value={squares[8]} onSquareClick={() => handleClick(8)} />
 			</div>
-			<button className="replay" onClick={() => handleClickReplay()} >replay</button>
+			<button className="replay-btn" onClick={() => handleClickReplay()}>
+				<img className="replay-btn__img" src="./replay.png" alt="replay icon" />
+			</button>
 		</>
 	);
 }
-
-
 
 function calculateWinner(squares) {
 	//win combinations
