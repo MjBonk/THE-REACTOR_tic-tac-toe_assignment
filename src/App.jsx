@@ -18,36 +18,58 @@ export default function Board() {
 
 
 	function handleClick(i) {
+		//returns out of the click event (makes it disabled) if square already clicked/win/draw. 
+		// kind of like 'break' in loop 
 		if (squares[i] || calculateWinner(squares) || isDraw) {
 			return;
 		}
 
-		const nextSquares = squares.slice();
-		if (xIsNext === true) {
-			nextSquares[i] = "X";
-		} else if (xIsNext === false) {
-			nextSquares[i] = "O";
-		}
-		const squaresLeft = nextSquares.filter(square => square === null)
+		//use slice to copy squares array 
+		const squaresContent = squares.slice();
 
+		//replace null with X/O in the index clicked 
+		if (xIsNext === true) {
+			squaresContent[i] = "X";
+		} else if (xIsNext === false) {
+			squaresContent[i] = "O";
+		}
+
+		//declare varieble of how many empty squares left
+		const squaresLeft = squaresContent.filter(square => square === null)
+
+	    //if no empty squares laft set state of draw 
 		if(squaresLeft.length === 0 && !calculateWinner(squares)){
 			setIsDraw(true)
 		}
 
-		setSquares(nextSquares);
+		//replace square array with new array containing one replaced value
+		//set next player to opposite of who played before
+		setSquares(squaresContent);
 		setXIsNext(!xIsNext);
 	}
-
 	
+	
+	//check id isDraw/winner === true
 	if(isDraw){
 		status = 'DRAW'
-	} else if (winner) {
+	} 
+	if (winner) {
 		status = 'WINNER ' + winner;
 	} else {
 		status = xIsNext ? "X" : "O";
 	}
 
+	//resets all the states
+	function handleClickReplay(){
+		setSquares(Array(9).fill(null))
+		setIsDraw(false)
+		setXIsNext(true)
+	}
+
+
+
 	return (
+		//using arrow functions inside click events, otherwise the event goes off directly 
 		<>
 			<p className="status">{status}</p>
 			<div className="board-grid">
@@ -61,10 +83,12 @@ export default function Board() {
 				<Square value={squares[7]} onSquareClick={() => handleClick(7)} />
 				<Square value={squares[8]} onSquareClick={() => handleClick(8)} />
 			</div>
-			{/* <button className="replay">replay</button> */}
+			<button className="replay" onClick={() => handleClickReplay()} >replay</button>
 		</>
 	);
 }
+
+
 
 function calculateWinner(squares) {
 	//win combinations
