@@ -23,7 +23,6 @@ export default function Board() {
 		}
 
 		const nextSquares = squares.slice();
-
 		if (xIsNext === true) {
 			nextSquares[i] = "X";
 		} else if (xIsNext === false) {
@@ -39,6 +38,7 @@ export default function Board() {
 		setXIsNext(!xIsNext);
 	}
 
+	
 	if(isDraw){
 		status = 'DRAW'
 	} else if (winner) {
@@ -61,6 +61,7 @@ export default function Board() {
 				<Square value={squares[7]} onSquareClick={() => handleClick(7)} />
 				<Square value={squares[8]} onSquareClick={() => handleClick(8)} />
 			</div>
+			{/* <button className="replay">replay</button> */}
 		</>
 	);
 }

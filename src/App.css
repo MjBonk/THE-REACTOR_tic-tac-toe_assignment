@@ -2,7 +2,7 @@
   text-align: center;
   font-size: 6rem;
   margin: 4rem -50rem;
-  color: #7a3ab2;
+  color: var(--clr-text);
 }
 
 .board-grid {
@@ -17,8 +17,8 @@ button {
   border: 1px solid transparent;
   width: 5rem;
   height: 5rem;
-  background-color: #0080802b;
-  color: #7a3ab2;
+  background-color: #0000002b;
+  color: var(--clr-text);
   cursor: pointer;
 
   font-size: 3em;
