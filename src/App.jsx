@@ -48,12 +48,10 @@ export default function Board() {
 	}
 
 	//check if isDraw/winner is true to change status
-	if (isDraw) {
-		status = "DRAW";
-	}
-
 	if (winner) {
-		status = "WINNER " + winner;
+		status = winner + " WINS!";
+	} else if (isDraw) {
+		status = "DRAW";
 	} else {
 		status = xIsNext ? "X" : "O";
 	}
